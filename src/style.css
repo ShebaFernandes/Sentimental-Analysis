@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+}
+
+.container {
+    max-width: 600px;
+    width: 100%;
+    padding: 30px;
+    border: 2px solid #4CAF50;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    background-color: #ffffff;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    resize: none;
+    box-sizing: border-box;
+}
+
+.button-container {
+    display: flex; /* Fixed missing display property */
+    justify-content: center;
+    gap: 20px; /* Improved spacing between buttons */
+}
+
+button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-weight: bold;
+    width: 45%; /* Ensures uniform button width */
+    flex-grow: 1;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e3f2fd;
+    border: 1px solid #2196F3;
+    border-radius: 8px;
+    text-align: left;
+}
+
+@media (max-width: 600px) {
+    .button-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    button {
+        width: 100%;
+    }
+}

@@ -1,37 +1,29 @@
 import React, { useState } from 'react';
 import Sentiment from 'sentiment';
 
-
 const SentimentForm = () => {
     const [review, setReview] = useState('');
     const [result, setResult] = useState(null);
 
-    const analyzeSentiment = () => {
-        const sentiment = new Sentiment();
-        const analysis = sentiment.analyze(review);
+    const analyzeSentiment = async () => {
+        try {
+            const response = await fetch('http://localhost:8000/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text: review }),
+            });
 
-        const sentimentResult = analysis.score > 0
-            ? 'Positive'
-            : analysis.score < 0
-            ? 'Negative'
-            : 'Neutral';
-
-        const strengths = [];
-        const weaknesses = [];
-
-        const positiveWords = ['good', 'great', 'excellent', 'amazing', 'love'];
-        const negativeWords = ['bad', 'poor', 'terrible', 'disappointing', 'hate'];
-
-        review.toLowerCase().split(' ').forEach((word) => {
-            if (positiveWords.includes(word)) strengths.push(word);
-            if (negativeWords.includes(word)) weaknesses.push(word);
-        });
-
-        setResult({
-            sentiment: sentimentResult,
-            strengths: strengths.length > 0 ? strengths.join(', ') : 'None',
-            weaknesses: weaknesses.length > 0 ? weaknesses.join(', ') : 'None'
-        });
+            const data = await response.json();
+            setResult({
+                sentiment: data.sentiment,
+                strengths: data.strengths || 'None',
+                weaknesses: data.weaknesses || 'None',
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     const goToBackend = () => {

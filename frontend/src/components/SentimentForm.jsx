@@ -5,6 +5,29 @@ const SentimentForm = () => {
     const [review, setReview] = useState('');
     const [result, setResult] = useState(null);
 
+    // const analyzeSentiment = async () => {
+    //     try {
+    //         const response = await fetch('http://localhost:8000/analyze', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({ text: review }),
+    //         });
+
+    //         const data = await response.json();
+    //         setResult({
+    //             sentiment: data.sentiment,
+    //             strengths: data.strengths || 'None',
+    //             weaknesses: data.weaknesses || 'None',
+    //         });
+    //     } catch (error) {
+    //         console.error('Error:', error);
+    //     }
+    // };
+
+
+    // Using the Sentiment library to analyze sentiment
     const analyzeSentiment = async () => {
         try {
             const response = await fetch('http://localhost:8000/analyze', {
@@ -14,12 +37,11 @@ const SentimentForm = () => {
                 },
                 body: JSON.stringify({ text: review }),
             });
-
+    
             const data = await response.json();
             setResult({
                 sentiment: data.sentiment,
-                strengths: data.strengths || 'None',
-                weaknesses: data.weaknesses || 'None',
+                confidence: data.confidence,
             });
         } catch (error) {
             console.error('Error:', error);
@@ -45,6 +67,7 @@ const SentimentForm = () => {
                 <div className="result">
                     <h3>Result:</h3>
                     <p><b>Sentiment:</b> {result.sentiment}</p>
+                    <p><b>score:</b> {result.confidence}</p>
                     <p><b>Strengths:</b> {result.strengths}</p>
                     <p><b>Weaknesses:</b> {result.weaknesses}</p>
                 </div>
